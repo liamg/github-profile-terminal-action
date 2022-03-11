@@ -1,0 +1,13 @@
+name: Github Profile Magic
+description: ""
+inputs:
+  rss:
+    description: RSS feed to use for latest posts
+    required: false
+  theme:
+    description: Theme (dark or light)
+    required: false
+
+runs:
+  using: docker
+  image: Dockerfile
