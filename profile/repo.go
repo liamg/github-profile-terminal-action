@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"sort"
+	"strings"
 
 	"github.com/google/go-github/v43/github"
 )
@@ -11,8 +12,9 @@ import (
 func (p *Profile) getOwnedRepos(ctx context.Context) ([]*github.Repository, error) {
 	var all []*github.Repository
 	page := 1
+	username := strings.Split(p.config.Context.Repository, "/")[0]
 	for {
-		ownedRepos, resp, err := p.gh.Repositories.List(ctx, "", &github.RepositoryListOptions{
+		ownedRepos, resp, err := p.gh.Repositories.List(ctx, username, &github.RepositoryListOptions{
 			Visibility:  "all",
 			Affiliation: "owner",
 			Sort:        "updated",
