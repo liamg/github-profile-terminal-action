@@ -22,7 +22,8 @@ type GithubContext struct {
 func Derive() (*Config, error) {
 	var c Config
 	if err := json.Unmarshal([]byte(os.Getenv("GITHUB_CONTEXT")), &c.Context); err != nil {
-		return nil, fmt.Errorf("github context is missing or invalid: %s", err)
+		c.Context.Repository = os.Getenv("GITHUB_ACTION_REPOSITORY")
+		c.Context.Token = os.Getenv("GITHUB_TOKEN")
 	}
 	c.Theme = readInput("theme", "dark")
 	c.TwitterUsername = readInput("twitter_username", "")
