@@ -22,7 +22,7 @@ type GithubContext struct {
 func Derive() (*Config, error) {
 	var c Config
 	if err := json.Unmarshal([]byte(os.Getenv("GITHUB_CONTEXT")), &c.Context); err != nil {
-		c.Context.Repository = os.Getenv("GITHUB_ACTION_REPOSITORY")
+		c.Context.Repository = os.Getenv("GITHUB_REPOSITORY")
 		c.Context.Token = os.Getenv("GITHUB_TOKEN")
 	}
 	c.Theme = readInput("theme", "dark")
