@@ -7,8 +7,8 @@ import (
 	"os/exec"
 	"time"
 
-	"github.com/liamg/github-profile-magic-action/config"
-	"github.com/liamg/github-profile-magic-action/profile"
+	"github.com/liamg/github-profile-terminal-action/config"
+	"github.com/liamg/github-profile-terminal-action/profile"
 )
 
 const outputDir = "."

@@ -8,8 +8,8 @@ import (
 	"image/gif"
 	"os"
 
-	"github.com/liamg/github-profile-magic-action/canvas"
-	"github.com/liamg/github-profile-magic-action/theme"
+	"github.com/liamg/github-profile-terminal-action/canvas"
+	"github.com/liamg/github-profile-terminal-action/theme"
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/basicfont"
 )

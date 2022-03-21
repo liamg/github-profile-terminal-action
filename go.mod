@@ -1,4 +1,4 @@
-module github.com/liamg/github-profile-magic-action
+module github.com/liamg/github-profile-terminal-action
 
 go 1.17
 
