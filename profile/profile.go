@@ -3,10 +3,12 @@ package profile
 import (
 	"bytes"
 	"context"
-	_ "embed"
+	"embed"
 	"fmt"
 	"image"
+	"image/jpeg"
 	"image/png"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -23,8 +25,8 @@ import (
 	"github.com/nfnt/resize"
 )
 
-//go:embed gh.png
-var embeddedGitHubLogo []byte
+//go:embed *.png
+var embedded embed.FS
 
 const (
 	Width = 830
@@ -170,10 +172,17 @@ func (p *Profile) Generate(ctx context.Context, dir string) error {
 
 func (p *Profile) boot() error {
 	term := p.term
-	gh, err := png.Decode(bytes.NewBuffer(embeddedGitHubLogo))
+
+	f, err := embedded.Open("gh.png")
 	if err != nil {
 		return err
 	}
+
+	gh, err := png.Decode(f)
+	if err != nil {
+		return err
+	}
+
 	ratio := float64(gh.Bounds().Max.X) / float64(gh.Bounds().Max.Y)
 
 	iw := 0.333 * float64(Width)
@@ -221,7 +230,7 @@ func (p *Profile) boot() error {
 	return nil
 }
 
-func (p *Profile) login(ctx context.Context) error {
+func (p *Profile) login(_ context.Context) error {
 
 	p.term.Clear()
 	p.term.Println("GifOS v0.1.0 tty1")
@@ -352,9 +361,18 @@ drwxr-xr-x   3 visitor visitor 4.0K Dec 27 19:08 .vscode-oss
 		return err
 	}
 	defer resp.Body.Close()
-	img, err := png.Decode(resp.Body)
+
+	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return err
+	}
+
+	img, err := png.Decode(bytes.NewReader(data))
+	if err != nil {
+		img, err = jpeg.Decode(bytes.NewReader(data))
+		if err != nil {
+			return err
+		}
 	}
 
 	ratio := float64(img.Bounds().Max.X) / float64(img.Bounds().Max.Y)
