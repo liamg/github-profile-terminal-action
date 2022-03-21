@@ -8,8 +8,10 @@ import (
 )
 
 type Config struct {
-	Context GithubContext
-	Theme   string
+	Context         GithubContext
+	Theme           string
+	TwitterUsername string
+	FeedURL         string
 }
 
 type GithubContext struct {
@@ -23,6 +25,8 @@ func Derive() (*Config, error) {
 		return nil, fmt.Errorf("github context is missing or invalid: %s", err)
 	}
 	c.Theme = readInput("theme", "dark")
+	c.TwitterUsername = readInput("twitter_username", "")
+	c.FeedURL = readInput("feed_url", "")
 	return &c, nil
 }
 

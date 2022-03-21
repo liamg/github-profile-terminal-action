@@ -31,7 +31,7 @@ func (p *Profile) getOwnedRepos(ctx context.Context) ([]*github.Repository, erro
 		page++
 	}
 	sort.Slice(all, func(i, j int) bool {
-		return *all[i].StargazersCount < *all[j].StargazersCount
+		return *all[i].StargazersCount > *all[j].StargazersCount
 	})
 	return all, nil
 }

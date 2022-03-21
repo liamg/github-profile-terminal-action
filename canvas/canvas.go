@@ -38,6 +38,10 @@ func (c *Canvas) Rect(x1, y1, x2, y2 int, col color.RGBA) {
 	draw.Draw(c.img, rect, &image.Uniform{C: col}, image.Point{}, draw.Src)
 }
 
+func (c *Canvas) DrawImageAtRect(r image.Rectangle, src image.Image) {
+	draw.Draw(c.img, r, src, image.Point{}, draw.Over)
+}
+
 func (c *Canvas) DrawImage(p image.Point, src image.Image) {
-	draw.Draw(c.img, c.img.Bounds(), src, p, draw.Src)
+	draw.Draw(c.img, c.img.Bounds(), src, p, draw.Over)
 }
