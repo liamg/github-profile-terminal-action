@@ -1,7 +1,9 @@
 package profile
 
 import (
+	"bytes"
 	"context"
+	_ "embed"
 	"fmt"
 	"image"
 	"image/png"
@@ -21,10 +23,11 @@ import (
 	"github.com/nfnt/resize"
 )
 
+//go:embed gh.png
+var embeddedGitHubLogo []byte
+
 const (
-	Width     = 830
-	HalfWidth = Width / 2
-	Height    = 200
+	Width = 830
 )
 
 type Profile struct {
@@ -167,11 +170,7 @@ func (p *Profile) Generate(ctx context.Context, dir string) error {
 
 func (p *Profile) boot() error {
 	term := p.term
-	ghLogo, err := os.Open("gh.png")
-	if err != nil {
-		return err
-	}
-	gh, err := png.Decode(ghLogo)
+	gh, err := png.Decode(bytes.NewBuffer(embeddedGitHubLogo))
 	if err != nil {
 		return err
 	}

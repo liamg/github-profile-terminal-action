@@ -8,12 +8,10 @@ import (
 	"image/gif"
 	"os"
 
+	"github.com/liamg/github-profile-magic-action/canvas"
 	"github.com/liamg/github-profile-magic-action/theme"
-
 	"golang.org/x/image/font"
 	"golang.org/x/image/font/basicfont"
-
-	"github.com/liamg/github-profile-magic-action/canvas"
 )
 
 type Speed int
