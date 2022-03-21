@@ -1,11 +1,14 @@
 name: Github Profile Magic
 description: ""
 inputs:
-  rss:
+  feed_url:
     description: RSS feed to use for latest posts
     required: false
   theme:
     description: Theme (dark or light)
+    required: false
+  twitter_username:
+    description: Twitter username for follow button
     required: false
 
 runs:
