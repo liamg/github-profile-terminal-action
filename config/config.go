@@ -25,6 +25,7 @@ func Derive() (*Config, error) {
 		c.Context.Repository = os.Getenv("GITHUB_REPOSITORY")
 		c.Context.Token = os.Getenv("GITHUB_TOKEN")
 	}
+	c.Context.Token = readInput("token", c.Context.Token)
 	c.Theme = readInput("theme", "dark")
 	c.TwitterUsername = readInput("twitter_username", "")
 	c.FeedURL = readInput("feed_url", "")

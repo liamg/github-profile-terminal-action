@@ -10,6 +10,9 @@ inputs:
   twitter_username:
     description: Twitter username for follow button
     required: false
+  token:
+    description: github token
+    required: true
 
 runs:
   using: docker
