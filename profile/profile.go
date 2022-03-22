@@ -106,7 +106,7 @@ func (p *Profile) Generate(ctx context.Context, dir string) error {
 
 	// 2. social links
 	if p.config.TwitterUsername != "" {
-		twitterLink := fmt.Sprintf("[![Follow on Twitter](https://img.shields.io/twitter/url/https/twitter.com/%s.svg?style=social&label=Follow%%20%%40%[1]s)](https://twitter.com/%[1]s)", p.config.TwitterUsername)
+		twitterLink := fmt.Sprintf("[![Follow on Twitter](https://img.shields.io/twitter/url/https/twitter.com/%s.svg?style=social&label=Follow%%20%%40%[1]s)](https://twitter.com/%[1]s) ", p.config.TwitterUsername)
 		if _, err := readme.Write([]byte(twitterLink)); err != nil {
 			return err
 		}
@@ -117,7 +117,7 @@ func (p *Profile) Generate(ctx context.Context, dir string) error {
 	if err != nil {
 		return err
 	}
-	if _, err := readme.Write([]byte("\n\n## Popular Repositories\n<table>\n")); err != nil {
+	if _, err := readme.Write([]byte("\n---\n\n## Popular Repositories\n<table>\n")); err != nil {
 		return err
 	}
 	popular := stats.OwnedRepositories
