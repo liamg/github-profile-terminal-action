@@ -106,7 +106,7 @@ func (p *Profile) Generate(ctx context.Context, dir string) error {
 
 	// 2. social links
 	if p.config.TwitterUsername != "" {
-		twitterLink := fmt.Sprintf("[![Follow on Twitter](https://shields.io/twitter/follow/%s?label=Follow](https://twitter.com/%[1]s) ", p.config.TwitterUsername)
+		twitterLink := fmt.Sprintf("[![Follow on Twitter](https://shields.io/twitter/follow/%s?label=Follow)](https://twitter.com/%[1]s) ", p.config.TwitterUsername)
 		if _, err := readme.Write([]byte(twitterLink)); err != nil {
 			return err
 		}
