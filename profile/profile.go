@@ -99,6 +99,7 @@ func (p *Profile) Generate(ctx context.Context, dir string) error {
 
 	fmt.Println("Adding terminal to markdown...")
 	if _, err := readme.Write([]byte(fmt.Sprintf(`![gifOS](%s)
+
 `, "os.gif"))); err != nil {
 		return err
 	}
