@@ -125,7 +125,7 @@ func (p *Profile) Generate(ctx context.Context, dir string) error {
 		popular = popular[:12]
 	}
 	for _, repo := range popular {
-		if _, err := readme.Write([]byte(fmt.Sprintf("<tr><td><a href=\"%s\">%s</a></td><td>%s</td><td align=\"center\" width=\"12%%\">%d :star:</td></tr>\n", *repo.HTMLURL, *repo.Name, *repo.Description, *repo.StargazersCount))); err != nil {
+		if _, err := readme.Write([]byte(fmt.Sprintf("<tr><td><a href=\"%s\">%s</a></td><td>%s</td><td align=\"center\" width=\"12%%\">%d :star:</td></tr>\n", repo.GetHTMLURL(), repo.GetName(), repo.GetDescription(), repo.GetStargazersCount()))); err != nil {
 			return err
 		}
 	}
@@ -313,7 +313,7 @@ drwxr-xr-x   3 visitor visitor 4.0K Dec 27 19:08 .vscode-oss
 
 	user := stats.User
 
-	p.term.Type(fmt.Sprintf("./ghlookup -u %s\n", *user.Login), terminal.Fast)
+	p.term.Type(fmt.Sprintf("./ghlookup -u %s\n", user.GetLogin()), terminal.Fast)
 	p.term.ShowCursor(false)
 
 	p.term.Print("\nConnecting...")
@@ -326,19 +326,19 @@ drwxr-xr-x   3 visitor visitor 4.0K Dec 27 19:08 .vscode-oss
 	p.term.Println(" -- User Details")
 	p.term.Print("   User ID:     ")
 	p.term.SetHighlight(true)
-	p.term.Println(fmt.Sprintf("%d", *user.ID))
+	p.term.Println(fmt.Sprintf("%d", user.GetID()))
 	p.term.SetHighlight(false)
 	p.term.Print("   Username:    ")
 	p.term.SetHighlight(true)
-	p.term.Println(*user.Login)
+	p.term.Println(user.GetLogin())
 	p.term.SetHighlight(false)
 	p.term.Print("   Real name:   ")
 	p.term.SetHighlight(true)
-	p.term.Println(*user.Name)
+	p.term.Println(user.GetName())
 	p.term.SetHighlight(false)
 	p.term.Print("   Location:    ")
 	p.term.SetHighlight(true)
-	p.term.Println(*user.Location)
+	p.term.Println(user.GetLocation())
 	p.term.SetHighlight(false)
 	p.term.Println("")
 	p.term.Println("")
@@ -347,15 +347,19 @@ drwxr-xr-x   3 visitor visitor 4.0K Dec 27 19:08 .vscode-oss
 	p.term.Println("")
 
 	p.term.Println(" -- Statistics")
-	p.term.Print("   Total Stars: ")
+	p.term.Print("   Total Stars:     ")
 	p.term.SetHighlight(true)
 	p.term.Println(fmt.Sprintf("%d", stats.TotalStars))
+	p.term.SetHighlight(false)
+	p.term.Print("   Total Followers: ")
+	p.term.SetHighlight(true)
+	p.term.Println(fmt.Sprintf("%d", stats.TotalFollowers))
 	p.term.SetHighlight(false)
 	p.term.Println("")
 	p.term.Println("")
 	p.term.Println("")
 
-	resp, err := http.Get(*stats.User.AvatarURL)
+	resp, err := http.Get(stats.User.GetAvatarURL())
 	if err != nil {
 		return err
 	}

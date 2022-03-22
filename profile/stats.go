@@ -11,6 +11,7 @@ type Stats struct {
 	User              *github.User
 	OwnedRepositories []*github.Repository
 	TotalStars        int
+	TotalFollowers    int
 }
 
 func (p *Profile) Stats(ctx context.Context) (*Stats, error) {
@@ -28,6 +29,7 @@ func (p *Profile) Stats(ctx context.Context) (*Stats, error) {
 		return nil, err
 	}
 	stats.User = user
+	stats.TotalFollowers = user.GetFollowers()
 
 	ownedRepositores, err := p.getOwnedRepos(ctx)
 	if err != nil {
@@ -36,7 +38,7 @@ func (p *Profile) Stats(ctx context.Context) (*Stats, error) {
 	stats.OwnedRepositories = ownedRepositores
 
 	for _, repo := range ownedRepositores {
-		stats.TotalStars += *repo.StargazersCount
+		stats.TotalStars += repo.GetStargazersCount()
 	}
 
 	p.stats = &stats
