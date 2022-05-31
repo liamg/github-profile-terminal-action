@@ -121,8 +121,8 @@ func (p *Profile) Generate(ctx context.Context, dir string) error {
 		return err
 	}
 	popular := stats.OwnedRepositories
-	if len(popular) > 12 {
-		popular = popular[:12]
+	if len(popular) > 14 {
+		popular = popular[:14]
 	}
 	for _, repo := range popular {
 		if _, err := readme.Write([]byte(fmt.Sprintf("<tr><td><a href=\"%s\">%s</a></td><td>%s</td><td align=\"center\" width=\"12%%\">%d :star:</td></tr>\n", repo.GetHTMLURL(), repo.GetName(), repo.GetDescription(), repo.GetStargazersCount()))); err != nil {
