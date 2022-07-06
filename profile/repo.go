@@ -3,7 +3,6 @@ package profile
 import (
 	"context"
 	"fmt"
-	"sort"
 	"strings"
 
 	"github.com/google/go-github/v43/github"
@@ -32,8 +31,5 @@ func (p *Profile) getOwnedRepos(ctx context.Context) ([]*github.Repository, erro
 		}
 		page++
 	}
-	sort.Slice(all, func(i, j int) bool {
-		return *all[i].StargazersCount > *all[j].StargazersCount
-	})
 	return all, nil
 }

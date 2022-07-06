@@ -55,7 +55,7 @@ func (p *Profile) Stats(ctx context.Context) (*Stats, error) {
 	}
 
 	sort.Slice(stats.OwnedRepositories, func(i, j int) bool {
-		return stats.OwnedRepositories[i].GetStargazersCount() < stats.OwnedRepositories[j].GetStargazersCount()
+		return stats.OwnedRepositories[i].GetStargazersCount() > stats.OwnedRepositories[j].GetStargazersCount()
 	})
 
 	p.stats = &stats
