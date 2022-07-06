@@ -13,6 +13,12 @@ inputs:
   token:
     description: github token
     required: true
+  extra_repo:
+    description: Extra repo to show (outside of your user)
+    required: false
+  extra_repo_description:
+    description: Description of the extra repo
+    required: false
 
 runs:
   using: docker
